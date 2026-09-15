@@ -1,0 +1,358 @@
+/* 古いカメラ帳 - 共通スタイル
+   スマホ優先・余白重視・カードUIは最小限にする。外部フォント／外部通信は使用しない。 */
+
+:root {
+  --color-bg: #f7f5f1;
+  --color-surface: #ffffff;
+  --color-text: #2b2724;
+  --color-muted: #6b6560;
+  --color-border: #e2ddd4;
+  --color-accent: #7a5a3a;
+  --color-accent-dark: #55402a;
+  --color-notice-bg: #f1ede6;
+  --color-caution-bg: #fbf3e6;
+  --color-caution-border: #e6cfa1;
+  --color-caution-text: #7a5424;
+  --max-width: 720px;
+  --radius: 6px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans", Meiryo, sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  line-height: 1.85;
+  font-size: 16px;
+}
+
+a {
+  color: var(--color-accent-dark);
+}
+
+a:hover,
+a:focus {
+  color: var(--color-accent);
+}
+
+.site-header {
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1.25rem 1.25rem 1rem;
+}
+
+.site-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.site-title a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.site-tagline {
+  margin: 0.25rem 0 1rem;
+  color: var(--color-muted);
+  font-size: 0.88rem;
+}
+
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav a {
+  text-decoration: none;
+  font-size: 0.92rem;
+}
+
+.site-nav a[aria-current="page"] {
+  color: var(--color-accent-dark);
+  font-weight: 700;
+  border-bottom: 2px solid var(--color-accent);
+}
+
+main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1.75rem 1.25rem 3rem;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin-top: 0;
+  line-height: 1.5;
+}
+
+h2 {
+  font-size: 1.12rem;
+  margin-top: 2.2rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+p {
+  margin: 1rem 0;
+}
+
+.lead {
+  font-size: 1.02rem;
+}
+
+.breadcrumb {
+  font-size: 0.82rem;
+  color: var(--color-muted);
+  margin-bottom: 0.5rem;
+}
+
+.breadcrumb a {
+  text-decoration: none;
+}
+
+/* 状況説明のプレースホルダー写真枠。実写真を用意したら<img>に差し替える */
+.situation-visual {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  margin: 1.1rem 0;
+  border: 1px dashed var(--color-border);
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--color-notice-bg),
+    var(--color-notice-bg) 10px,
+    var(--color-surface) 10px,
+    var(--color-surface) 20px
+  );
+}
+
+@media (max-width: 480px) {
+  .situation-visual {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+.notice {
+  background-color: var(--color-notice-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.95rem 1.15rem;
+  font-size: 0.94rem;
+  color: var(--color-muted);
+}
+
+.caution-box {
+  background-color: var(--color-caution-bg);
+  border: 1px solid var(--color-caution-border);
+  color: var(--color-caution-text);
+  border-radius: var(--radius);
+  padding: 0.85rem 1.1rem;
+  font-size: 0.9rem;
+  margin: 0.9rem 0;
+}
+
+.caution-box strong {
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+/* 確認チェックリスト（枠なし、印だけで軽く見せる） */
+.check-list {
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+}
+
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.95rem;
+}
+
+.check-item:last-child {
+  border-bottom: none;
+}
+
+.check-item::before {
+  content: "";
+  flex-shrink: 0;
+  width: 0.95rem;
+  height: 0.95rem;
+  margin-top: 0.25rem;
+  border: 2px solid var(--color-accent);
+  border-radius: 3px;
+}
+
+/* トップページの意思決定の流れ（軽量、カード化しない） */
+.flow-list {
+  list-style: none;
+  margin: 1.25rem 0;
+  padding: 0;
+  counter-reset: flow;
+}
+
+.flow-list li {
+  counter-increment: flow;
+  position: relative;
+  padding: 0.7rem 0 0.7rem 2.4rem;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.98rem;
+}
+
+.flow-list li:last-child {
+  border-bottom: none;
+}
+
+.flow-list li::before {
+  content: counter(flow);
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  border: 2px solid var(--color-accent);
+  color: var(--color-accent-dark);
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flow-list a {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.flow-list .flow-note {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  font-weight: 400;
+}
+
+/* 状況リスト（想定ユーザーの状況を並べる、装飾を抑える） */
+.situation-list {
+  margin: 1rem 0;
+  padding-left: 1.3rem;
+}
+
+.situation-list li {
+  margin-bottom: 0.45rem;
+}
+
+.text-list {
+  padding-left: 1.3rem;
+}
+
+.text-list li {
+  margin-bottom: 0.6rem;
+}
+
+.related-links {
+  margin-top: 2.5rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.related-links h2 {
+  margin-top: 0;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.related-links ul {
+  padding-left: 1.3rem;
+}
+
+.related-links li {
+  margin-bottom: 0.55rem;
+}
+
+.updated {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.site-footer {
+  border-top: 1px solid var(--color-border);
+  margin-top: 2rem;
+}
+
+.footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 2.5rem;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.footer-nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  margin: 0 0 0.75rem;
+  padding: 0;
+}
+
+.footer-nav a {
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.footer-notice {
+  margin: 0 0 0.75rem;
+}
+
+.copyright {
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .header-inner,
+  main,
+  .footer-inner {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+  }
+}
+
+/* 将来のCTA用スロット（現時点では広告コードなし。掲載時にここへ差し込む） */
+.future-cta-slot {
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius);
+  padding: 1rem 1.15rem;
+  margin: 1.25rem 0;
+  color: var(--color-muted);
+  font-size: 0.88rem;
+}
